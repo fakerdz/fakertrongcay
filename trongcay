@@ -15,7 +15,7 @@ getgenv().Config = {
         ["Pepper"] = 44,
         ["Bamboo"] = 44
     },
-    ["FPS"] = 2,
+    ["FPS"] = 5,
     ["Buy Egg"] = true,
     ["Egg"] = {
         ["Common Egg"] = false,
@@ -57,7 +57,7 @@ getgenv().Config = {
         ["Auto Destroy when have money"] = 1000000, -- its will destroy all trees select when money >= select
         ["Trees"] = {"Strawberry", "Blueberry", "Corn", "Tomato", "Orange Tulip"}
     },
-    ["Url"] = "",
+    ["Url"] = "https://discord.com/api/webhooks/1375485459463147530/hKYhTo1VttmGkMNhZiv1zpFTnE4YQZu5hArlFeYZD5OIu77fQmkfh2Zrty6KWpSPZX-z",
     ["Boost FPS"] = true,
     ["Black Screen"] = true
 }
