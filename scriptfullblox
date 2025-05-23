@@ -1,0 +1,138 @@
+task.wait(30)
+
+-- ⚙️ Cấu hình
+local checkDelay = 60
+local stuckTimeout = 60
+local noLevelUpTimeout = 180
+local nearbyRadius = 30
+local levelMax = 2650
+
+-- 📦 Dịch vụ Roblox
+local Players = game:GetService("Players")
+local TeleportService = game:GetService("TeleportService")
+local HttpService = game:GetService("HttpService")
+local LocalPlayer = Players.LocalPlayer
+
+-- 🧠 Biến theo dõi
+local lastPosition = nil
+local stuckTime = 0
+local lastLevel = LocalPlayer.Data.Level.Value
+local lastLevelChange = os.time()
+
+-- 🔁 Đổi server
+local function hopToServer()
+    print("🔁 Đang tìm server mới...")
+    local success = pcall(function()
+        local url = "https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"
+        local response = HttpService:JSONDecode(game:HttpGet(url))
+        local best, minPlayers = nil, math.huge
+
+        for _, server in ipairs(response.data) do
+            if server.id ~= game.JobId and server.playing < server.maxPlayers and server.playing < minPlayers then
+                best = server
+                minPlayers = server.playing
+            end
+        end
+
+        if best then
+            print("🌐 Đang chuyển đến server có", best.playing, "người.")
+            TeleportService:TeleportToPlaceInstance(game.PlaceId, best.id, LocalPlayer)
+        else
+            print("⚠️ Không tìm thấy server khác, thử rejoin.")
+            TeleportService:Teleport(game.PlaceId)
+        end
+    end)
+
+    if not success then
+        print("❌ Lỗi khi teleport, rejoin lại...")
+        TeleportService:Teleport(game.PlaceId)
+    end
+end
+
+-- 🧍 Kiểm tra bị đứng yên
+local function checkStuck()
+    local char = LocalPlayer.Character
+    if char and char:FindFirstChild("HumanoidRootPart") then
+        local pos = char.HumanoidRootPart.Position
+        if lastPosition and (pos - lastPosition).Magnitude < 1 then
+            stuckTime += checkDelay
+            print("📌 Đứng yên:", stuckTime, "giây")
+            if stuckTime >= stuckTimeout then
+                print("⚠️ Bị kẹt quá lâu → hop")
+                hopToServer()
+            end
+        else
+            stuckTime = 0
+        end
+        lastPosition = pos
+    end
+end
+
+-- 👥 Kiểm tra người chơi gần
+local function isNearPlayer()
+    local myChar = LocalPlayer.Character
+    if not myChar or not myChar:FindFirstChild("HumanoidRootPart") then return false end
+    local myPos = myChar.HumanoidRootPart.Position
+
+    for _, plr in ipairs(Players:GetPlayers()) do
+        if plr ~= LocalPlayer and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+            local dist = (myPos - plr.Character.HumanoidRootPart.Position).Magnitude
+            print("👤", plr.Name, "cách", math.floor(dist), "studs")
+            if dist <= nearbyRadius then return true end
+        end
+    end
+    return false
+end
+
+-- 📈 Kiểm tra không lên cấp
+task.spawn(function()
+    while true do
+        local level = LocalPlayer.Data.Level.Value
+        print("🎯 Level hiện tại:", level)
+        if level < levelMax then
+            if level > lastLevel then
+                lastLevel = level
+                lastLevelChange = os.time()
+            elseif os.time() - lastLevelChange >= noLevelUpTimeout then
+                print("⚠️ Không lên cấp sau", noLevelUpTimeout, "giây → hop")
+                hopToServer()
+            end
+        else
+            print("✅ Level max, dừng kiểm tra level.")
+            break
+        end
+        task.wait(600)
+    end
+end)
+
+-- 🔁 Luồng chính kiểm tra stuck + người gần
+task.spawn(function()
+    while true do
+        if LocalPlayer.Data.Level.Value < levelMax then
+            if isNearPlayer() then
+                print("👥 Có người chơi gần! Đợi 60s rồi hop...")
+                task.wait(60)
+                hopToServer()
+            end
+            checkStuck()
+        else
+            print("✅ Level max, không cần kiểm tra nữa.")
+        end
+        task.wait(checkDelay)
+    end
+end)
+
+-- 🤝 Auto kết bạn người gần
+task.spawn(function()
+    task.wait(30)
+    while task.wait(60) do
+        pcall(function()
+            for _, player in ipairs(Players:GetPlayers()) do
+                if player ~= LocalPlayer and not player:IsFriendsWith(LocalPlayer.UserId) then
+                    LocalPlayer:RequestFriendship(player)
+                    task.wait(1)
+                end
+            end
+        end)
+    end
+end)
