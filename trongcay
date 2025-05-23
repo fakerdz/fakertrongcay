@@ -43,7 +43,7 @@ getgenv().Config = {
         ["Red Lollipop"] = false,
         ["Chocolate Carrot"] = false
     },
-    ["Hop Old Server"] = false,
+    ["Hop Old Server"] = true,
     ["Delay Hop"] = 5,
     ["Sprinkler"] = {
         ["Basic Sprinkler"] = false,
