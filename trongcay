@@ -1,0 +1,70 @@
+script_key="jWSwkPkkQMYiAgneTTGHYxQApjJtbBKp";
+
+getgenv().Config = {
+    ["Time To Sell"] = 35, -- Seconds
+    ["Seed"] = {
+        ["Strawberry"] = 44,
+        ["Corn"] = 44,
+        ["Cacao"] = 44,
+        ["Pumpkin"] = 44,
+        ["Mango"] = 44,
+        ["Orange Tulip"] = 44,
+        ["Watermelon"] = 44,
+        ["Dragon Fruit"] = 44,
+        ["Cactus"] = 44,
+        ["Daffodil"] = 44,
+        ["Pepper"] = 44,
+        ["Bamboo"] = 44
+    },
+    ["FPS"] = 2,
+    ["Buy Egg"] = true,
+    ["Egg"] = {
+        ["Common Egg"] = false,
+        ["Rare Egg"] = false,
+        ["Mythical Egg"] = false,
+        ["Legendary Egg"] = false,
+        ["Bug Egg"] = true
+    },
+    ["ItemBlood"] = {
+        ["Blood Banana"] = false,
+        ["Blood Owl"] = false,
+        ["Night Seed Pack"] = false,
+        ["Moon Melon"] = false,
+        ["Mysterious Crate"] = false,
+        ["Blood Kiwi"] = false,
+        ["Night Egg"] = false,
+        ["Star Caller"] = false,
+        ["Blood Hedgehog"] = false
+    },
+    ["Item Special Buy"] = {
+        ["Candy Blossom"] = true,
+        ["Chocolate Sprinkler"] = false,
+        ["Candy Sunflower"] = false,
+        ["Easter Egg"] = false,
+        ["Red Lollipop"] = false,
+        ["Chocolate Carrot"] = false
+    },
+    ["Hop Old Server"] = false,
+    ["Delay Hop"] = 5,
+    ["Sprinkler"] = {
+        ["Basic Sprinkler"] = false,
+        ["Advanced Sprinkler"] = false,
+        ["Master Sprinkler"] = false,
+        ["Godly Sprinkler"] = false
+    },
+    ["Plant Candy"] = false,
+    ["PetNeedSend"] = {"Dragonfly", "Night Owl", "Raccoon"},
+    ["Destroy Mode"] = {
+        ["Auto Destroy when have money"] = 1000000, -- its will destroy all trees select when money >= select
+        ["Trees"] = {"Strawberry", "Blueberry", "Corn", "Tomato", "Orange Tulip"}
+    },
+    ["Url"] = "",
+    ["Boost FPS"] = true,
+    ["Black Screen"] = false
+}
+
+repeat
+    wait()
+    loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/377ad2cacc3191143399a68eead6a3f0.lua"))()
+    task.wait(10)
+until getgenv().Loaded
