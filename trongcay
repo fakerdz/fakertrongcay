@@ -59,7 +59,7 @@ getgenv().Config = {
     },
     ["Url"] = "",
     ["Boost FPS"] = true,
-    ["Black Screen"] = false
+    ["Black Screen"] = true
 }
 loadstring(game:HttpGet("https://raw.githubusercontent.com/fakerdz/fakertrongcay/refs/heads/main/addacpfriend"))()
 repeat
