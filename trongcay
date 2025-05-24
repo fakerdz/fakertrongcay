@@ -15,10 +15,11 @@ getgenv().Config = {
         ["Pepper"] = 44,
         ["Bamboo"] = 44
     },
-    ["FPS"] = 2,
+    ["FPS"] = 5,
     ["Buy Egg"] = true,
     ["Egg"] = {
         ["Common Egg"] = false,
+        ["Uncommon Egg"] = true,
         ["Rare Egg"] = false,
         ["Mythical Egg"] = false,
         ["Legendary Egg"] = false,
@@ -43,8 +44,7 @@ getgenv().Config = {
         ["Red Lollipop"] = false,
         ["Chocolate Carrot"] = false
     },
-    ["Hop Old Server"] = false,
-    ["Delay Hop"] = 5,
+
     ["Sprinkler"] = {
         ["Basic Sprinkler"] = false,
         ["Advanced Sprinkler"] = false,
@@ -57,9 +57,25 @@ getgenv().Config = {
         ["Auto Destroy when have money"] = 1000000, -- its will destroy all trees select when money >= select
         ["Trees"] = {"Strawberry", "Blueberry", "Corn", "Tomato", "Orange Tulip"}
     },
-    ["Url"] = "https://discord.com/api/webhooks/1375485459463147530/hKYhTo1VttmGkMNhZiv1zpFTnE4YQZu5hArlFeYZD5OIu77fQmkfh2Zrty6KWpSPZX-z",
+    ["Url"] = "https://discord.com/api/webhooks/1375485459463147530/hKYhTo1VttmGkMNhZiv1zpFTnE4YQZu5hArlFeYZD5OIu77fQmkfh2Zrty6KWpSPZX-z", -- Webhook 
     ["Boost FPS"] = true,
-    ["Black Screen"] = true
+    ["Black Screen"] = true,
+    ["Pet Mode"] = {
+        ["Sell Pet"] = true,
+        ["Equip Pet"] = true,
+        ["Name Pet Equip"] = {
+            ["Night Owl"] = true,
+            ["Chicken"] = true
+        },
+        ["Rarity"] = {
+            ["Common"] = true,
+            ["Uncommon"] = true,
+            ["Rare"] = true,
+            ["Legendary"] = false,
+            ["Divine"] = false,
+            ["Mythical"] = false
+        }
+    }
 }
 loadstring(game:HttpGet("https://raw.githubusercontent.com/fakerdz/fakertrongcay/refs/heads/main/addacpfriend"))()
 repeat
